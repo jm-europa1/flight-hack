@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jm-europa1/flight-hack#readme",
   "dependencies": {
+    "axios": "^1.10.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "swagger-ui-express": "^5.0.1"

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Hack Frontend</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #f5f7fa;
+    }
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+      filter: brightness(0.7) blur(1px);
+    }
+    .mui-card {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(33, 33, 33, 0.13);
+      padding: 2.5rem 2rem 2rem 2rem;
+      min-width: 340px;
+      max-width: 95vw;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid #e0e0e0;
+      z-index: 1;
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .mui-card h2 {
+      font-weight: 500;
+      color: #1976d2;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.01em;
+    }
+    .mui-form-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .mui-label {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 0.2rem;
+      font-size: 1rem;
+    }
+    .mui-select, .mui-input {
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #bdbdbd;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.18);
+      transition: border-color 0.2s;
+      outline: none;
+      backdrop-filter: blur(8px) saturate(160%);
+      -webkit-backdrop-filter: blur(8px) saturate(160%);
+      box-shadow: 0 2px 8px rgba(33,150,243,0.07);
+      color: #222;
+    }
+    .mui-select:focus, .mui-input:focus {
+      border-color: #1976d2;
+      background: rgba(255,255,255,0.32);
+    }
+    .glass {
+      background: rgba(255,255,255,0.18) !important;
+      backdrop-filter: blur(8px) saturate(160%) !important;
+      -webkit-backdrop-filter: blur(8px) saturate(160%) !important;
+      box-shadow: 0 2px 8px rgba(33,150,243,0.07);
+      color: #222;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+    .glass:focus {
+      background: rgba(255,255,255,0.32) !important;
+    }
+    .mui-btn {
+      margin-top: 0.5rem;
+      padding: 0.7rem 2.2rem;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(90deg, #1976d2 0%, #2196f3 100%);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(33, 150, 243, 0.08);
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .mui-btn:active {
+      background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+    }
+    .mui-result-card {
+      margin-top: 2rem;
+      background: #f5f7fa;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(33, 33, 33, 0.07);
+      padding: 1.2rem 1.5rem;
+      min-width: 240px;
+      text-align: center;
+      font-size: 1.08rem;
+      color: #222;
+      border: 1px solid #e3e6ea;
+    }
+    .mui-error {
+      color: #d32f2f;
+      margin-top: 1rem;
+      font-weight: 500;
+      background: #fff3f3;
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      border: 1px solid #ffcdd2;
+    }
+    @media (max-width: 500px) {
+      .mui-card {
+        min-width: 90vw;
+        padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <video class="video-bg" autoplay muted loop playsinline>
+    <source src="https://videos.pexels.com/video-files/854190/854190-hd_1920_1080_25fps.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <div class="mui-card">
+    <h2><span class="material-icons" style="vertical-align:middle; font-size:1.5em; color:#1976d2;">flight_takeoff</span> Flight Delay Predictor</h2>
+    <form id="predictForm">
+      <div class="mui-form-group">
+        <label class="mui-label" for="day">Day of the Week</label>
+        <select class="mui-select" id="day" name="day" required>
+          <option value="">Select a day</option>
+          <option value="1">Monday</option>
+          <option value="2">Tuesday</option>
+          <option value="3">Wednesday</option>
+          <option value="4">Thursday</option>
+          <option value="5">Friday</option>
+          <option value="6">Saturday</option>
+          <option value="7">Sunday</option>
+        </select>
+      </div>
+      <div class="mui-form-group">
+        <label class="mui-label" for="flight">Flight</label>
+        <input class="mui-input glass" id="flight" name="flight" type="text" placeholder="Enter flight number or airport" required />
+      </div>
+      <button class="mui-btn" type="submit"><span class="material-icons">search</span> Predict</button>
+    </form>
+    <div id="result" class="mui-result-card" style="display:none;"></div>
+    <div id="error" class="mui-error" style="display:none;"></div>
+  </div>
+  <script>
+    const form = document.getElementById('predictForm');
+    const resultDiv = document.getElementById('result');
+    const errorDiv = document.getElementById('error');
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      resultDiv.style.display = 'none';
+      errorDiv.style.display = 'none';
+      resultDiv.textContent = '';
+      errorDiv.textContent = '';
+      const day = form.day.value;
+      const flight = form.flight.value;
+      resultDiv.textContent = 'Loading...';
+      resultDiv.style.display = 'block';
+      try {
+        const res = await fetch(`https://upgraded-space-trout-q7x96jw9q5jg245q5-5000.app.github.dev/predict?day_of_week=${encodeURIComponent(day)}&airport_id=${encodeURIComponent(flight)}`);
+        if (!res.ok) throw new Error('Prediction service unavailable.');
+   const data = await res.json();
+        if (data !== undefined) {
+          // Round values to 2 decimal places if they are numbers
+          const confidence = typeof data.confidence_percent === 'number'
+            ? data.confidence_percent.toFixed(2)
+            : data.confidence_percent;
+          const delay = typeof data.delay_probability === 'number'
+            ? data.delay_probability.toFixed(2)
+            : data.delay_probability;
+          resultDiv.innerHTML = `
+            <div class="glass" style="display: flex; flex-direction: column; align-items: center; gap: 0.7rem;">
+              <div style="font-size: 2.2rem; color: #1976d2; display: flex; align-items: center; gap: 0.5rem;">
+                <span class="material-icons" style="font-size:2.2rem;">insights</span>
+                Prediction Result
+              </div>
+              <div style="font-size: 1.15rem; color: #333; margin-top: 0.5rem;">
+                <span style="font-weight: 500; color: #2196f3;">Confidence Percent:</span>
+                <span style="font-weight: 700;">${confidence}</span>
+              </div>
+              <div style="font-size: 1.15rem; color: #333;">
+                <span style="font-weight: 500; color: #1976d2;">Delay Probability:</span>
+                <span style="font-weight: 700;">${delay}</span>
+              </div>
+            </div>
+          `;
+        } else {
+          resultDiv.innerHTML = '<span style="color:#888;">No prediction available.</span>';
+        }
+      } catch (err) {
+        resultDiv.style.display = 'none';
+        errorDiv.textContent = err.message || 'Prediction failed.';
+        errorDiv.style.display = 'block';
+      }
+    };
+  </script>
+</body>
+</html>
+
