@@ -1,0 +1,25 @@
+{
+  "name": "flight-hack",
+  "version": "1.0.0",
+  "description": "<!-- REPLACE THE TITLE WITH THE NAME OF THE EXERCISE -->",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jm-europa1/flight-hack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jm-europa1/flight-hack/issues"
+  },
+  "homepage": "https://github.com/jm-europa1/flight-hack#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
